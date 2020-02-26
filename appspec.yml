@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+files:
+  - source: build/libs/aws_loadbalancer.war
+    destination: /opt/tomcat/webapps/
+hooks:
+  ApplicationStop:
+    - location: deregister_from_elb.sh
+  AfterInstall:
+    - location: change_file_owner.sh
+  ApplicationStart:
+    - location: register_with_elb.sh
