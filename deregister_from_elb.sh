@@ -47,18 +47,18 @@ for target_group in $TARGET_GROUP_LIST; do
     msg "Deregistering $INSTANCE_ID from $target_group starts"
     deregister_instance $INSTANCE_ID $target_group
 
-    if [ $? != 0 ]; then
-        error_exit "Failed to deregister instance $INSTANCE_ID from target group $target_group"
-    fi
+#    if [ $? != 0 ]; then
+#        error_exit "Failed to deregister instance $INSTANCE_ID from target group $target_group"
+#    fi
 done
 
 # Wait for all Deregistrations to finish
 msg "Waiting for instance to de-register from its target groups"
 for target_group in $TARGET_GROUP_LIST; do
     wait_for_state "alb" $INSTANCE_ID "unused" $target_group
-    if [ $? != 0 ]; then
-        error_exit "Failed waiting for $INSTANCE_ID to leave $target_group"
-    fi
+#    if [ $? != 0 ]; then
+#        error_exit "Failed waiting for $INSTANCE_ID to leave $target_group"
+#    fi
 done
 
 msg "Finished $(basename $0) at $(/bin/date "+%F %T")"
