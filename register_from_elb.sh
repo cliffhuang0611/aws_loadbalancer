@@ -27,29 +27,6 @@ fi
 msg "Started $(basename $0) at $(/bin/date "+%F %T")"
 start_sec=$(/bin/date +%s.%N)
 
-msg "Checking if instance $INSTANCE_ID is part of an AutoScaling group"
-asg=$(autoscaling_group_name $INSTANCE_ID)
-if [ $? == 0 -a -n "${asg}" ]; then
-    msg "Found AutoScaling group for instance $INSTANCE_ID: ${asg}"
-
-    msg "Checking that installed CLI version is at least at version required for AutoScaling Standby"
-    check_cli_version
-    if [ $? != 0 ]; then
-        error_exit "CLI must be at least version ${MIN_CLI_X}.${MIN_CLI_Y}.${MIN_CLI_Z} to work with AutoScaling Standby"
-    fi
-
-    msg "Attempting to move instance out of Standby"
-    autoscaling_exit_standby $INSTANCE_ID "${asg}"
-    if [ $? != 0 ]; then
-        error_exit "Failed to move instance out of standby"
-    else
-        msg "Instance is no longer in Standby"
-        exit 0
-    fi
-fi
-
-msg "Instance is not part of an ASG, continuing..."
-
 msg "Checking that user set at least one target group"
 if test -z "$TARGET_GROUP_LIST"; then
     error_exit "Must have at least one target group to register to"
