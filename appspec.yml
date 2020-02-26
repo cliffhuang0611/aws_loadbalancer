@@ -6,7 +6,5 @@ files:
 hooks:
   ApplicationStop:
     - location: deregister_from_elb.sh
-  AfterInstall:
-    - location: change_file_owner.sh
   ApplicationStart:
     - location: register_with_elb.sh
