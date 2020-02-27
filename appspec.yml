@@ -6,7 +6,5 @@ files:
 hooks:
   ApplicationStop:
     - location: deregister_from_elb.sh
-      runas: root
   ApplicationStart:
     - location: register_from_elb.sh
-      runas: root
