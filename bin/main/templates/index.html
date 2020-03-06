@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
 
 <head>
 <title>AWS Test</title>
@@ -9,13 +10,16 @@
 <h1>Deploy Test</h1>
 S3 -> Pipeline
 <br>
-Version 24
+Version 25
 <br>
-2 Target Group test
+Session Test, no sticky sessions set
 <br>
-Kobe Bryant
-<br>
-The Mamba Mentality
+
+<form action="index" method="POST" th:object="${sessionInfo}">
+	<input type="text" name="sessionName" th:value="*{sessionName}" />
+	<input type="submit" value="Submit" />
+</form>
+
 </body>
 
 </html>
