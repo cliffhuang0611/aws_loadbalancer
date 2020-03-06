@@ -17,6 +17,9 @@ public class SessionPageController {
 		HttpSession session,
 		@RequestParam(value = "procMode", required = false) String procMode,
 		Model model){
+		if(session.getAttribute("sessionName") == null){
+			return "redirect:/";
+		}
 		if("clearSession".equals(procMode)){
 			Enumeration <String> attrList = session.getAttributeNames();
 			while(attrList.hasMoreElements()){
