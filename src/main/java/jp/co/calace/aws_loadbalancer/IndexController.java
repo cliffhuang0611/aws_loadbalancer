@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class IndexController {
+	
+	
 	
 	@RequestMapping(value={"/", "index"}, method=RequestMethod.GET)
 	public String dispTop(
@@ -19,7 +22,11 @@ public class IndexController {
 		if(session.getAttribute("sessionName") != null){
 			return "redirect:sessionTestPage";
 		}
+		RestTemplate restTemplate = new RestTemplate();
+		String instanceId = restTemplate.getForObject("http://169.254.169.254/latest/meta-data/instance-id", String.class);
+		session.setAttribute("instanceId", instanceId);
 		SessionFormModel sfModel = new SessionFormModel();
+		model.addAttribute("instanceId", instanceId);
 		model.addAttribute("sessionInfo", sfModel);
 		return "index";
 	}

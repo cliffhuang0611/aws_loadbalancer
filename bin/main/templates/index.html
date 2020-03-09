@@ -10,11 +10,12 @@
 <h1>Deploy Test</h1>
 S3 -> Pipeline
 <br>
-Version 27
+Version 28
 <br>
 Session Test
 <br>
-
+Instance ID:<th:block th:text="${instanceId}" />
+<br>
 <form action="index" method="POST" th:object="${sessionInfo}">
 	<input type="text" name="sessionName" th:value="*{sessionName}" />
 	<input type="submit" value="Submit" />

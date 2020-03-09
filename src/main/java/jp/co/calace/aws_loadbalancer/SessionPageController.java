@@ -27,6 +27,7 @@ public class SessionPageController {
 			}
 			return "redirect:/";
 		}
+		model.addAttribute("instanceId", session.getAttribute("instanceId"));
 		model.addAttribute("sessionName", session.getAttribute("sessionName"));
 		return "sessionTestPage";
 	}
